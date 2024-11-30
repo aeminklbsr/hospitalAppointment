@@ -1,0 +1,50 @@
+<!-- Sabit Sidebar -->
+<div class="border">
+    <h3>Randevu Sistemi</h3>
+    <hr>
+    <ul class="nav flex-column">
+        <!-- Ana Sayfa -->
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/home">Ana Sayfa</a>
+        </li>
+
+        <!-- Hasta İşlemleri -->
+        <li class="nav-item">
+            <a class="nav-link" href="#patientSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="patientSubmenu">Hasta İşlemleri</a>
+            <div class="collapse submenu" id="patientSubmenu">
+                <a class="nav-link" routerLink="/patient-list">Hasta Görüntüle</a>
+            </div>
+        </li>
+
+        <!-- Randevu İşlemleri -->
+        <li class="nav-item">
+            <a class="nav-link" href="#appointmentSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="appointmentSubmenu">Randevu İşlemleri</a>
+            <div class="collapse submenu" id="appointmentSubmenu">
+                
+                <a class="nav-link" routerLink="/appointment-add">Randevu Oluştur</a>
+                <a class="nav-link" routerLink="/appointment-list">Geçmiş Randevuları Görüntüle</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- Dinamik İçerik Alanı -->
+<div class="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-none">
+        <div class="container-fluid">
+            <a class="navbar-brand">Ana Sayfa</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="text" placeholder="Ara">
+                        <button class="btn btn-dark" type="button">Ara</button>
+                      </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr>
+    <router-outlet></router-outlet>
+</div>

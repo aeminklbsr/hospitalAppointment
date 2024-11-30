@@ -1,3 +1,75 @@
-<p>
-  patient-list works!
-</p>
+<div class="border border-body">
+  
+  <div class="upper-side">
+    <div class="page-filter">
+      <label>Sayfa başına öğe:</label>
+      <select (change)="onPageSizeChange($event)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="Tümü">Tümünü Göster</option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button class="btn btn-primary" (click)="openAddPatientModal()">Hasta Ekle</button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredPatientData.length > 0" class="table-result">
+    <table class="table table-custom">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Hasta Numarası</th>
+          <th>Hasta İsmi</th>
+          <th>Cep Numarası</th>
+          <th>Cinsiyet</th>
+          <th>Detay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredPatientData; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.patientId }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.mobileNo }}</td>
+          <td>{{ item.gender }}</td>
+          <td>
+            <button class="btn btn-dark btn-sm" (click)="openPatientDetails(item)">
+              Detay Göster
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="selectedPatient" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-footer">
+        <button class="btn-close" (click)="closePatientDetails()"></button>
+      </div>
+      <div class="modal-body">
+        <app-patient-details [patient]="selectedPatient"></app-patient-details>
+      </div>  
+    </div>
+  </div>
+
+  
+  
+  <!-- Hasta Ekleme Modalı -->
+  <div *ngIf="showAddPatientModal" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" (click)="closeAddPatientModal()"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Patient-Add Component -->
+        <app-patient-add (patientAdded)="onPatientAdded($event)"></app-patient-add>
+      </div>
+    </div>
+  </div>
+</div>

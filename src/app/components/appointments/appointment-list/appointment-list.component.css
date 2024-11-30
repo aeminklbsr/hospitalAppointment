@@ -1,0 +1,57 @@
+.border-body {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.table-result {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-right: 40px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    align-items: center;
+}
+
+.table th {
+    padding: 20px;
+    text-align: left;
+}
+
+.table-custom {
+    vertical-align: middle;
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.select-custom {
+    max-width: 100px;
+}
+
+.input-custom {
+    max-width: 300px;
+}
+
+.upper-side {
+    display: flex;
+    justify-content: space-between;
+    /* Sol ve sağa yapışmasını sağlıyor */
+    align-items: center;
+    /* Dikey hizalamayı ortalıyor */
+    padding: 30px;
+    /* İsteğe bağlı olarak boşluk ekledik */
+}
+
+.page-filter {
+    margin-right: auto;
+    /* Sola yapışık */
+}
+
+.table-search {
+    margin-left: auto;
+    /* Sağa yapışık */
+}
+

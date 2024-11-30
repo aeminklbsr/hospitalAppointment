@@ -1,3 +1,43 @@
-<p>
-  appointment-list works!
-</p>
+<div>
+  <div class="border border-body">
+    <div class="upper-side">
+      <div class="page-filter">
+        <label>Sayfa başına öğe:</label>
+        <select (change)="onPageSizeChange($event)">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="Tümü">Tümünü Göster</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="filteredAppointmentData.length > 0" class="table-result">
+      <table class="table table-custom">
+        <thead class="table-dark">
+          <tr>
+            <td>#</td>
+            <td>Randevu Numarası</td>
+            <td>Randevu Saati</td>
+            <td>Hasta İsmi</td>
+            <td>Hasta Numarası</td>
+            <td>Telefon Numarası</td>
+            <td>Şikayet</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of filteredAppointmentData; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{ appointment.appointmentId}}</td>
+            <td>{{ appointment.appointmentTime}}</td>
+            <td>{{ appointment.name}}</td>
+            <td>{{ appointment.patientId}}</td>
+            <td>{{ appointment.mobileNo}}</td>
+            <td>{{ appointment.naration}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

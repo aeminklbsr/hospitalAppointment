@@ -1,0 +1,94 @@
+.user-modal {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: auto;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+}
+
+.user-photo {
+  background-color: #1e90ff;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-photo img {
+  width: 80px;
+  height: auto;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 20px; /* Düzenleme alanından ayırma */
+}
+
+.user-info .info-item {
+  font-size: 16px;
+  text-align: center;
+  margin: 0;
+}
+
+.user-info .info-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.user-info .info-column {
+  flex: 1;
+  text-align: center;
+}
+
+.user-info hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid black;
+  margin: 10px 0;
+}
+
+.edit-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc; /* Çerçeve rengi */
+  border-radius: 5px; /* Hafif yuvarlatılmış köşeler */
+  padding: 10px; /* İçerik ile çerçeve arası boşluk */
+  background-color: #f9f9f9; /* Hafif arka plan rengi */
+  gap: 10px; /* İkon ve metin arasında boşluk */
+}
+

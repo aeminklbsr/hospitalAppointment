@@ -1,3 +1,100 @@
-<p>
-  patient-details works!
-</p>
+<div class="user-modal">
+  <!-- Kullanıcı Bilgileri Her Zaman Görünür -->
+  <div class="user-card">
+    <div class="user-photo">
+      <img src="https://img.icons8.com/ios-filled/50/FFFFFF/user-male-circle.png" alt="User Photo" />
+    </div>
+    <div class="user-info" *ngIf="!editMode">
+    <p class="name">
+      <strong>{{ patient?.name }}</strong>
+    </p>
+    <hr />
+      <div class="info-row">
+        <div class="info-column">
+          <p class="info-item">
+            <strong>Yaş:</strong> {{ patient?.age }}
+          </p>
+        </div>
+        <div class="info-column">
+          <p class="info-item">
+            <strong>Cinsiyet:</strong> {{ patient?.gender }}
+          </p>
+        </div>
+      </div>
+      <p class="info-item">
+        <strong>Ülke:</strong> {{ patient?.city }}
+      </p>
+      <p class="info-item">
+        <strong>Hasta Numarası:</strong> {{ patient?.patientId }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Düzenleme Modu -->
+  <div *ngIf="editMode" class="edit-section">
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/checked-identification-documents.png" alt="checked-identification-documents"/>
+      </span>
+      <input type="text" [(ngModel)]="patient!.patientId" class="form-control" readonly />
+    </div>
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/name.png" alt="name"/>
+      </span>
+      <input type="text" [(ngModel)]="firstName" class="form-control" placeholder="İsim" required />
+    </div>
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/name.png" alt="name" />
+      </span>
+      <input type="text" [(ngModel)]="lastName" class="form-control" placeholder="Soyisim" required/>
+    </div>
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/apple-phone.png" alt="apple-phone"/>
+      </span>
+      <input type="text" [(ngModel)]="patient!.mobileNo" class="form-control" mask="(000) 000 00 00" placeholder="Numara" required />
+    </div>
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/geography.png" alt="geography"/>
+      </span>
+      <select [(ngModel)]="patient!.city" class="form-control" required>
+        <option value="" disabled selected hidden>Ülke Seçiniz</option>
+        <option *ngFor="let city of country" [value]="city">{{ city }}</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/age.png" alt="age"/>
+      </span>
+      <input type="number" [(ngModel)]="patient!.age" class="form-control" placeholder="Yaş" required />
+    </div>
+    <div class="input-group">
+      <span class="input-group-text">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/gender.png" alt="gender"/>
+      </span>
+      <select [(ngModel)]="patient!.gender" class="form-control" placeholder="Cinsiyet" required>
+        <option value="Erkek">Erkek</option>
+        <option value="Kadin">Kadin</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Düzenleme Butonları -->
+  <div class="button-group d-flex gap-2">
+    <button *ngIf="!editMode" type="button" class="btn btn-primary" (click)="editMode = true">
+      <img width="15" height="15" src="https://img.icons8.com/ios-filled/50/FFFFFF/create-new.png" alt="create-new"/>
+    </button>
+    <button *ngIf="editMode" type="button" class="btn btn-success" (click)="updatePatient()">
+      <img width="15" height="15" src="https://img.icons8.com/ios-filled/50/FFFFFF/save--v1.png" alt="save--v1"/>
+    </button>
+    <button *ngIf="editMode" type="button" class="btn btn-secondary" (click)="editMode = false">
+      <img width="15" height="15" src="https://img.icons8.com/ios-filled/50/FFFFFF/delete-sign.png" alt="delete-sign"/>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deletePatient()">
+      <img width="15" height="15"src="https://img.icons8.com/ios-filled/50/FFFFFF/delete-forever.png" alt="delete-forever"/>
+    </button>
+  </div>
+</div>

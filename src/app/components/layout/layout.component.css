@@ -1,0 +1,57 @@
+/* Genel font ayarı */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Sidebar (border) ayarları */
+.border {
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  padding-top: 20px;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+}
+
+.border h3 {
+  padding: 15px 15px 0px 15px;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Sidebar link stili */
+.border .nav-link {
+  color: black;
+  padding: 15px 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.border .nav-link:hover {
+  background-color: #b8b8b8;
+  border-radius: 5px;
+}
+
+/* Alt başlıkların stili */
+.submenu {
+  padding-left: 30px; /* Alt başlıkları biraz sağa yasla */
+}
+
+.submenu .nav-link {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/* İçerik alanı ayarları */
+.content {
+  margin-left: 300px; /* Sidebar genişliği kadar boşluk bırak */
+  padding: 20px;
+  background-color: #e9ecef; /* Arka plan rengi */
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.content form{
+  margin-right: 20px;
+}
+
