@@ -8,6 +8,7 @@ import { Appointment } from '../../models/GetAllAppointments.model';
 import { FullCalendarModule } from '@fullcalendar/angular'; // FullCalendar modülü
 import dayGridPlugin from '@fullcalendar/daygrid'; // FullCalendar dayGrid eklentisi
 import { CalendarOptions } from '@fullcalendar/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -75,5 +76,36 @@ export class DashboardComponent implements OnInit {
 
   closeModal(): void {
     this.selectedAppointment = null;
+  }
+
+  markAsDone(appointmentId: number, index: number) {
+    this.appointmentService.markAppointmentDone(appointmentId).subscribe(
+      (response) => {
+        console.log('Randevu tamamlandı:', response);
+  
+        if (response.result) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Başarılı',
+            text: 'Randevu tamamlandı olarak işaretlendi.',
+            timer: 1500,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.reload(); // Sayfayı yeniler
+          });
+  
+          // Randevunun durumunu güncelle
+          this.todayAppointments[index].isDone = true;
+        }
+      },
+      (error) => {
+        console.error('Randevu tamamlanırken hata oluştu:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Hata',
+          text: 'Randevu tamamlanırken bir sorun oluştu.',
+        });
+      }
+    );
   }
 }

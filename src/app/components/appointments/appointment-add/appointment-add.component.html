@@ -1,64 +1,61 @@
-<div class="border border-body d-flex gap-2">
-  <h3 class="border-title">Randevu Kayıt</h3>
-  <hr>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/name.png" alt="name"/>
-    </span>
-    <input type="text" class="form-control" placeholder="İsim" required />
+<div class="border border-body">
+  <h3>Randevu Kayıt</h3>
+  <hr />
+
+  <!-- Hasta Arama ve Seçimi -->
+  <div class="autocomplete-container mb-3">
+    <input type="text" class="form-control" [(ngModel)]="searchQuery" (input)="onPatientSearch()"
+      (blur)="hideDropdown()" (focus)="showDropdown()" placeholder="Hasta Seçiniz" />
+    <ul class="autocomplete-dropdown" *ngIf="isDropdownVisible && filteredPatients.length > 0">
+      <!-- Hasta listesi -->
+      <li *ngFor="let patient of filteredPatients" (click)="selectPatient(patient)">
+        {{ patient.name }}
+      </li>
+    </ul>
   </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/name.png" alt="name" />
-    </span>
-    <input type="text"  class="form-control" placeholder="Soyisim" required />
+
+  <!-- Otomatik Doldurulan Alanlar -->
+  <div *ngIf="selectedPatient">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Cep Telefonu</span>
+      <input type="text" class="form-control" [(ngModel)]="selectedPatient.mobileNo" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Şehir</span>
+      <input type="text" class="form-control" [(ngModel)]="selectedPatient.city" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Yaş</span>
+      <input type="number" class="form-control" [(ngModel)]="selectedPatient.age" readonly />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Cinsiyet</span>
+      <input type="text" class="form-control" [(ngModel)]="selectedPatient.gender" readonly />
+    </div>
   </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/apple-phone.png" alt="apple-phone"/>
-    </span>
-    <input type="text" class="form-control" mask="(000) 000 00 00" placeholder="Numara" required />
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Randevu Tarihi</span>
+    <input type="date" class="form-control" [(ngModel)]="appointmentDate" />
   </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/geography.png" alt="geography"/>
-    </span>
-    <select  class="form-control" required >
-      <option value="" disabled selected hidden>Ülke Seçiniz</option>
-      <option *ngFor="let city of country" [value]="city">{{ city }}</option>
-    </select>
-  </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/age.png" alt="age"/>
-    </span>
-    <input type="number"  class="form-control" placeholder="Yaş" required/>
-  </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/gender.png" alt="gender"/>
-    </span>
-    <select  class="form-control" placeholder="Cinsiyet" required  >
-      <option value="" disabled selected hidden>Cinsiyet Seçiniz</option>
-      <option value="Erkek">Erkek</option>
-      <option value="Kadin">Kadin</option>
-    </select>
-  </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/gender.png" alt="gender"/>
-    </span>
-    <select  class="form-control" placeholder="Randevu Saati" required  >
+
+  <!-- Randevu Bilgileri -->
+  <div class="input-group mb-3">
+    <span class="input-group-text">Randevu Saati</span>
+    <select class="form-control" [(ngModel)]="appointmentTime">
       <option value="" disabled selected hidden>Randevu Saati Seçiniz</option>
-      <option value="11.45"></option>
-      <option value="12.45">Kadin</option>
+      <option *ngFor="let time of timeSlots" [value]="time">
+        {{ time }}
+      </option>
     </select>
   </div>
-  <div class="input-group">
-    <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/gender.png" alt="gender"/>
-    </span>
-    <input type="text"  class="form-control" placeholder="Şikayet" required  />
+  <div class="input-group mb-3">
+    <span class="input-group-text">Şikayet</span>
+    <input type="text" class="form-control" [(ngModel)]="naration" placeholder="Şikayet" required />
   </div>
-  <button class="btn btn-primary mt-3">Kaydet</button>
+  <div class="buttons">
+    <button class="btn btn-primary" (click)="saveAppointment()">Kaydet</button>
+    <button class="btn btn-dark" (click)="resetForm()">Reset</button>
+  </div>
+
 </div>

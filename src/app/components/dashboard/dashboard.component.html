@@ -31,6 +31,7 @@
                             <th>Hasta İsmi</th>
                             <th>Randevu Saati</th>
                             <th>Detay</th>
+                            <th>Tamamlandı</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,15 @@
                                     {{ selectedAppointment === todayAppointments[i] ? 'Kapat' : 'Detay Göster' }}
                                 </button>
                             </td>
+                            <td>
+                                <button
+                                  class="btn btn-success btn-sm"
+                                  [disabled]="appointment.isDone"
+                                  (click)="markAsDone(appointment.appointmentId, i)"
+                                >
+                                  {{ appointment.isDone ? 'Tamamlandı' : 'Tamamla' }}
+                                </button>
+                              </td>
                         </tr>
                     </tbody>
                 </table>
@@ -59,12 +69,12 @@
                 </div>
                 <br>
                 <div class="modal-body">
-                    <p><strong>Randevu Tarihi:</strong> {{ selectedAppointment.appointmentDate }}</p>
-                    <p><strong>Randevu Saati:</strong> {{ selectedAppointment.appointmentTime }}</p>
+                    <p><strong>Hasta ID:</strong> {{selectedAppointment.appointmentId}}</p>
                     <p><strong>Hasta İsmi:</strong> {{ selectedAppointment.name }}</p>
+                    <p><strong>Randevu Tarihi:</strong> {{ selectedAppointment.appointmentDate }}</p>
+                    <p><strong>Randevu Saati:</strong> {{ selectedAppointment.appointmentTime }}</p>          
                     <p><strong>Telefon:</strong> {{ selectedAppointment.mobileNo }}</p>
                     <p><strong>Durum:</strong> {{ selectedAppointment.isDone ? 'Tamamlandı' : 'Tamamlanmadı' }}</p>
-                    <p><strong>İlk Ziyaret Mi:</strong> {{ selectedAppointment.isFirstVisit ? 'Evet' : 'Hayır' }}</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" (click)="closeModal()">Kapat</button>
