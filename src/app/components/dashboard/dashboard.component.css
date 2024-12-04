@@ -195,3 +195,34 @@
     background-color: #f9f9f9; /* Hafif arka plan rengi */
     gap: 10px; /* İkon ve metin arasında boşluk */
   }
+
+  
+  /* Takvim başlık kısmını özelleştir */
+  .fc-toolbar {
+    background-color: #1d5282;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  /* Gün hücrelerini özelleştir */
+  .fc-daygrid-day {
+    border: 1px solid #dcdcdc;
+  }
+  
+  .fc-daygrid-day:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+  }
+  
+  /* Bugünün tarihi için özel stil */
+  .fc-day-today {
+    background-color: #ffeeba;
+    border: 2px solid #ffc107;
+  }
+  
+  /* Takvim yazı tipleri */
+  .fc {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+  }

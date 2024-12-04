@@ -57,7 +57,7 @@ export class AppointmentAddComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500,
       });
-
+  
       console.error("Eksik bilgi. Gönderilen veriler:", {
         selectedPatient: this.selectedPatient,
         appointmentTime: this.appointmentTime,
@@ -65,7 +65,7 @@ export class AppointmentAddComponent implements OnInit {
       });
       return;
     }
-
+  
     const selectedDate = this.appointmentDate;
     if (!selectedDate) {
       Swal.fire({
@@ -77,7 +77,7 @@ export class AppointmentAddComponent implements OnInit {
       });
       return;
     }
-
+  
     const newAppointment = {
       name: this.selectedPatient.name,
       mobileNo: this.selectedPatient.mobileNo,
@@ -88,35 +88,59 @@ export class AppointmentAddComponent implements OnInit {
       naration: this.naration,
       appointmentDate: `${selectedDate}T00:00:00.000Z`,
     };
-
-    this.appointmentService.addNewAppointment(newAppointment).subscribe(
-      (response) => {
-        Swal.fire({
-          title: 'Randevu Başarıyla Oluşturuldu',
-          html: `
-            <div>
-              <p><b>Hasta Adı:</b> ${newAppointment.name}</p>
-              <p><b>Tarih:</b> ${selectedDate}</p>
-              <p><b>Randevu Saati:</b> ${newAppointment.appointmentTime}</p>
-              <p><b>Şikayet:</b> ${newAppointment.naration}</p>
-            </div>
-          `,
-          icon: 'success',
-          confirmButtonText: 'Tamam',
-        }).then(() => {
-          this.resetForm();
-        });
-      },
-      (error) => {
-        console.error('Randevu eklenirken hata oluştu:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Hata',
-          text: 'Randevu kaydedilirken bir sorun oluştu. Lütfen tekrar deneyin.',
-          showConfirmButton: true,
-        });
+  
+    // Onay penceresi
+    Swal.fire({
+      title: 'Randevuyu Onaylıyor Musunuz?',
+      html: `
+        <div>
+          <p><b>Hasta Adı:</b> ${newAppointment.name}</p>
+          <p><b>Tarih:</b> ${selectedDate}</p>
+          <p><b>Randevu Saati:</b> ${newAppointment.appointmentTime}</p>
+          <p><b>Şikayet:</b> ${newAppointment.naration}</p>
+        </div>
+      `,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Evet, Onaylıyorum',
+      cancelButtonText: 'İptal',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Kullanıcı onayladıysa randevuyu kaydet
+        this.appointmentService.addNewAppointment(newAppointment).subscribe(
+          (response) => {
+            Swal.fire({
+              title: 'Randevu Başarıyla Oluşturuldu',
+              html: `
+                <div>
+                  <p><b>Hasta Adı:</b> ${newAppointment.name}</p>
+                  <p><b>Tarih:</b> ${selectedDate}</p>
+                  <p><b>Randevu Saati:</b> ${newAppointment.appointmentTime}</p>
+                  <p><b>Şikayet:</b> ${newAppointment.naration}</p>
+                </div>
+              `,
+              icon: 'success',
+              confirmButtonText: 'Tamam',
+            }).then(() => {
+              this.resetForm();
+            });
+          },
+          (error) => {
+            console.error('Randevu eklenirken hata oluştu:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Hata',
+              text: 'Randevu kaydedilirken bir sorun oluştu. Lütfen tekrar deneyin.',
+              showConfirmButton: true,
+            });
+          }
+        );
+      } else {
+        console.log('Kullanıcı randevuyu onaylamadı.');
       }
-    );
+    });
   }
 
   resetForm() {

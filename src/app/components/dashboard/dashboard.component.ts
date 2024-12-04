@@ -54,11 +54,6 @@ export class DashboardComponent implements OnInit {
   populateCalendarEvents() {
     this.calendarOptions.events = this.todayAppointments.map(appointment => ({
       title: appointment.name,
-      date: appointment.appointmentDate,
-      extendedProps: {
-        time: appointment.appointmentTime,
-        isDone: appointment.isDone
-      }
     }));
   }
   
