@@ -37,8 +37,8 @@
             <td>{{ appointment.mobileNo}}</td>
             <td>{{ appointment.naration}}</td>
             <td><button type="button" class="btn btn-danger" (click)="deleteAppointment(appointment.appointmentId)">
-              <img width="15" height="15"src="https://img.icons8.com/ios-filled/50/FFFFFF/delete-forever.png" alt="delete-forever"/>
-            </button></td>
+                <img width="15" height="15" [src]="imgDelete" alt="delete-forever" />
+              </button></td>
           </tr>
         </tbody>
       </table>

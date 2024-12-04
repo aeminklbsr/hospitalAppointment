@@ -15,17 +15,17 @@ import { PatientAddComponent } from '../patient-add/patient-add.component';
   styleUrls: ['./patient-list.component.css'],
   providers: [PatientService],
 })
+
 export class PatientListComponent implements OnInit {
   patientData: Patients[] = [];
   filteredPatientData: Patients[] = [];
-  pageSize: number = 10; // Sayfa başına gösterilecek öğe sayısı
-  selectedPatient: Patients | null = null; // Seçilen hasta bilgisi
-  showAddPatientModal: boolean = false; // Modal görünürlüğü
+  pageSize: number = 10;
+  selectedPatient: Patients | null = null; 
+  showAddPatientModal: boolean = false;
 
   constructor(private patientService: PatientService) {}
 
   ngOnInit() {
-    // Hasta listesini API'den çek
     this.patientService.getAllPatient().subscribe(
       (data) => {
         this.patientData = data.reverse();
@@ -36,7 +36,6 @@ export class PatientListComponent implements OnInit {
   }
 
   updateFilteredData() {
-    // Sayfa başına gösterilecek veriyi ayarla
     this.filteredPatientData =
       this.pageSize === -1
         ? this.patientData
@@ -49,26 +48,24 @@ export class PatientListComponent implements OnInit {
     this.updateFilteredData();
   }
 
-  // Hasta detaylarını aç
   openPatientDetails(patient: Patients) {
     this.selectedPatient = patient;
   }
 
-  // Modalı kapat
   closePatientDetails() {
     this.selectedPatient = null;
   }
 
   openAddPatientModal() {
-    this.showAddPatientModal = true; // Modal açılır
+    this.showAddPatientModal = true;
   }
 
   closeAddPatientModal() {
-    this.showAddPatientModal = false; // Modal kapanır
+    this.showAddPatientModal = false;
   }
 
   onPatientAdded(newPatient: Patients) {
-    this.patientData.unshift(newPatient); // Yeni hasta başa eklenir
-    this.closeAddPatientModal(); // Modal kapanır
+    this.patientData.unshift(newPatient); 
+    this.closeAddPatientModal();
   }
 }

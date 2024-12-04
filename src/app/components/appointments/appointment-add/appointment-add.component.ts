@@ -18,14 +18,15 @@ import { TIME_SLOTS } from '../../../environments/time';
 })
 export class AppointmentAddComponent implements OnInit {
   patients: Patients[] = [];
-  selectedPatient: Patients | null = null; // Seçilen hasta
-  appointmentTime: string = ''; // Randevu saati
+  selectedPatient: Patients | null = null;
+  appointmentTime: string = '';
   appointmentDate: string = '';
-  naration: string = ''; // Şikayet
-  timeSlots = TIME_SLOTS; // Saat listesini değişkene ata
-  searchQuery: string = ''; // Arama sorgusu
+  naration: string = '';
+  timeSlots = TIME_SLOTS;
+  searchQuery: string = '';
   filteredPatients: Patients[] = [];
-  isDropdownVisible: boolean = false; // Dropdown görünürlüğü
+  isDropdownVisible: boolean = false;
+  
   constructor(
     private patientService: PatientService,
     private appointmentService: AppointmentService
@@ -42,18 +43,11 @@ export class AppointmentAddComponent implements OnInit {
 
   onPatientSelect(event: Event) {
     const target = event.target as HTMLSelectElement;
-    const patientId = Number(target.value); // ID'yi sayıya dönüştür
-
-    // Seçilen hastayı bul ve konsolda kontrol et
+    const patientId = Number(target.value);
     const matchedPatient = this.patients.find((patient) => Number(patient.patientId) === patientId);
-
-    // Hasta bulunursa atama yap
     this.selectedPatient = matchedPatient || null;
-
   }
 
-
-  
   saveAppointment() {
     if (!this.selectedPatient || !this.appointmentTime || !this.naration) {
       Swal.fire({
@@ -63,7 +57,7 @@ export class AppointmentAddComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500,
       });
-  
+
       console.error("Eksik bilgi. Gönderilen veriler:", {
         selectedPatient: this.selectedPatient,
         appointmentTime: this.appointmentTime,
@@ -71,9 +65,8 @@ export class AppointmentAddComponent implements OnInit {
       });
       return;
     }
-  
-    // Seçilen tarih (date inputundan gelen)
-    const selectedDate = this.appointmentDate; // YYYY-MM-DD formatında tarih
+
+    const selectedDate = this.appointmentDate;
     if (!selectedDate) {
       Swal.fire({
         icon: 'warning',
@@ -84,8 +77,7 @@ export class AppointmentAddComponent implements OnInit {
       });
       return;
     }
-  
-    // API'ye gönderilecek veri
+
     const newAppointment = {
       name: this.selectedPatient.name,
       mobileNo: this.selectedPatient.mobileNo,
@@ -94,21 +86,25 @@ export class AppointmentAddComponent implements OnInit {
       gender: this.selectedPatient.gender,
       appointmentTime: this.appointmentTime,
       naration: this.naration,
-      appointmentDate: `${selectedDate}T00:00:00.000Z`, // Seçilen tarihi ISO formatına çevirme
+      appointmentDate: `${selectedDate}T00:00:00.000Z`,
     };
-  
-  
-    // API çağrısı
+
     this.appointmentService.addNewAppointment(newAppointment).subscribe(
       (response) => {
         Swal.fire({
+          title: 'Randevu Başarıyla Oluşturuldu',
+          html: `
+            <div>
+              <p><b>Hasta Adı:</b> ${newAppointment.name}</p>
+              <p><b>Tarih:</b> ${selectedDate}</p>
+              <p><b>Randevu Saati:</b> ${newAppointment.appointmentTime}</p>
+              <p><b>Şikayet:</b> ${newAppointment.naration}</p>
+            </div>
+          `,
           icon: 'success',
-          title: 'Başarılı',
-          text: 'Randevu başarıyla kaydedildi.',
-          showConfirmButton: false,
-          timer: 1500,
+          confirmButtonText: 'Tamam',
         }).then(() => {
-          window.location.reload(); // Sayfayı yeniler
+          this.resetForm();
         });
       },
       (error) => {
@@ -122,15 +118,14 @@ export class AppointmentAddComponent implements OnInit {
       }
     );
   }
-  
-  // Formu sıfırlama fonksiyonu
+
   resetForm() {
     this.selectedPatient = null;
     this.appointmentTime = '';
     this.naration = '';
     this.appointmentDate = '';
-    this.searchQuery = ''; // Hasta arama inputunu temizle
-  this.isDropdownVisible = false; // Dropdown'u gizle
+    this.searchQuery = '';
+    this.isDropdownVisible = false;
   }
 
   clearForm() {
@@ -139,7 +134,6 @@ export class AppointmentAddComponent implements OnInit {
     this.naration = '';
   }
 
-  // Arama işlemi
   onPatientSearch() {
     const query = this.searchQuery.toLowerCase();
     this.filteredPatients = this.patients.filter(
@@ -150,19 +144,17 @@ export class AppointmentAddComponent implements OnInit {
     this.showDropdown();
   }
 
-  // Hasta seçimi
   selectPatient(patient: Patients) {
     this.selectedPatient = patient;
-    this.searchQuery = patient.name; // Seçilen hastayı input alanına yaz
-    this.hideDropdown(); // Dropdown'u gizle
+    this.searchQuery = patient.name;
+    this.hideDropdown();
   }
 
-  // Dropdown görünürlüğü kontrolü
   showDropdown() {
     this.isDropdownVisible = true;
   }
 
   hideDropdown() {
-    setTimeout(() => (this.isDropdownVisible = false), 200); // Biraz gecikme ekle
+    setTimeout(() => (this.isDropdownVisible = false), 200);
   }
 }

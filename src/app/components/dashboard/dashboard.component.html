@@ -45,14 +45,13 @@
                                 </button>
                             </td>
                             <td>
-                                <button
-                                  class="btn btn-success btn-sm"
-                                  [disabled]="appointment.isDone"
-                                  (click)="markAsDone(appointment.appointmentId, i)"
-                                >
-                                  {{ appointment.isDone ? 'Tamamlandı' : 'Tamamla' }}
+                                <button class="btn btn-sm" [ngClass]="{
+                                    'btn-success': appointment.isDone,
+                                    'btn-danger': !appointment.isDone}" [disabled]="appointment.isDone"
+                                    (click)="markAsDone(appointment.appointmentId, i)">
+                                    {{ appointment.isDone ? 'Tamamlandı' : 'Tamamlanmadı' }}
                                 </button>
-                              </td>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -67,14 +66,15 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Randevu Detayları</h5>
                 </div>
-                <br>
-                <div class="modal-body">
-                    <p><strong>Hasta ID:</strong> {{selectedAppointment.appointmentId}}</p>
-                    <p><strong>Hasta İsmi:</strong> {{ selectedAppointment.name }}</p>
-                    <p><strong>Randevu Tarihi:</strong> {{ selectedAppointment.appointmentDate }}</p>
-                    <p><strong>Randevu Saati:</strong> {{ selectedAppointment.appointmentTime }}</p>          
-                    <p><strong>Telefon:</strong> {{ selectedAppointment.mobileNo }}</p>
-                    <p><strong>Durum:</strong> {{ selectedAppointment.isDone ? 'Tamamlandı' : 'Tamamlanmadı' }}</p>
+                <hr>
+                <div class="info-row">
+                    <p class="info-item"><strong>Hasta ID:</strong> {{selectedAppointment.appointmentId}}</p>
+                    <p class="info-item"><strong>Hasta İsmi:</strong> {{ selectedAppointment.name }}</p>
+                    <p class="info-item"><strong>Randevu Tarihi:</strong> {{ selectedAppointment.appointmentDate }}</p>
+                    <p class="info-item"><strong>Randevu Saati:</strong> {{ selectedAppointment.appointmentTime }}</p>
+                    <p class="info-item"><strong>Telefon:</strong> {{ selectedAppointment.mobileNo }}</p>
+                    <p class="info-item"><strong>Durum:</strong> {{ selectedAppointment.isDone ? 'Tamamlandı' :
+                        'Tamamlanmadı' }}</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" (click)="closeModal()">Kapat</button>
@@ -84,8 +84,8 @@
 
         <div class="calender p-3 mb-3">
             <div class="full-calendar-wrapper">
-              <full-calendar [options]="calendarOptions"></full-calendar>
+                <full-calendar [options]="calendarOptions"></full-calendar>
             </div>
-          </div>
+        </div>
     </div>
 </div>

@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Appointment } from '../models/GetAllAppointments.model'
 import { map, Observable } from 'rxjs';
+import { appointmentApi } from '../environments/appointmentApi';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AppointmentService {
 
-  private todayAppointments = '/api/HospitalAppointment/GetTodaysAppointments';
-  private allAppointments = '/api/HospitalAppointment/GetAllAppointments';
-  private addAppointments = '/api/HospitalAppointment/AddNewAppointment';
-  private deleteAppointments = '/api/HospitalAppointment/DeleteAppointmentByAppointment';
-  private markAppointments = '/api/HospitalAppointment/MarkAppointmentDone'
+  private todayAppointments: string = appointmentApi.todayAppointments;
+  private allAppointments: string = appointmentApi.allAppointments;
+  private addAppointments: string = appointmentApi.addAppointments;
+  private deleteAppointments: string = appointmentApi.deleteAppointments;
+  private markAppointments: string = appointmentApi.markAppointments;
 
   constructor(private http: HttpClient) {
     console.log('AppointmentService initialized');
@@ -38,7 +40,7 @@ export class AppointmentService {
     gender: string;
     appointmentTime: string;
     naration: string;
-    appointmentDate: string; // Tarih ve saat eklendi
+    appointmentDate: string;
   }): Observable<{ message: string; result: boolean }> {
     return this.http.post<{ message: string; result: boolean }>(this.addAppointments, appointment);
   }

@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Patients } from '../models/GetAllPatients.model';
+import { patientApi } from '../environments/patientApi';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
 
-  private getApiUrl = '/api/HospitalAppointment/GetAllPatients';
-  private updateApiUrl = '/api/HospitalAppointment/UpdatePatient';
-  private addNewApiUrl = '/api/HospitalAppointment/AddNewPatient';
+  private getApiUrl: string = patientApi.getApiUrl;
+  private updateApiUrl: string = patientApi.updateApiUrl;
+  private addNewApiUrl: string = patientApi.addNewApiUrl;
 
   constructor(private http: HttpClient) {
     console.log('DashboardService initialized');
@@ -32,6 +33,6 @@ export class PatientService {
 
   deletePatientById(patientId: string | number): Observable<any> {
     const url = `/api/HospitalAppointment/DeletePatientByPatienId?patientId=${patientId}`;
-return this.http.delete(url);
+    return this.http.delete(url);
   }
 }

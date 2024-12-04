@@ -3,42 +3,43 @@
   <hr>
   <div class="input-group">
     <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/name.png" alt="name"/>
+      <img width="20" height="20" [src]="imgName" alt="name" />
     </span>
     <input type="text" [(ngModel)]="firstName" class="form-control" placeholder="İsim" required />
   </div>
   <div class="input-group">
     <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/name.png" alt="name" />
+      <img width="20" height="20" [src]="imgName" alt="name" />
     </span>
     <input type="text" [(ngModel)]="lastName" class="form-control" placeholder="Soyisim" required />
   </div>
   <div class="input-group">
     <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/apple-phone.png" alt="apple-phone"/>
+      <img width="20" height="20" [src]="imgPhone" alt="apple-phone" />
     </span>
-    <input type="text" [(ngModel)]="patient.mobileNo" class="form-control" mask="(000) 000 00 00" placeholder="Numara" required />
+    <input type="text" [(ngModel)]="patient.mobileNo" class="form-control" mask="(000) 000 00 00" placeholder="Numara"
+      required />
   </div>
   <div class="input-group">
     <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/geography.png" alt="geography"/>
+      <img width="20" height="20" [src]="imgCountry" alt="country" />
     </span>
-    <select [(ngModel)]="patient!.city" class="form-control" required >
+    <select [(ngModel)]="patient!.city" class="form-control" required>
       <option value="" disabled selected hidden>Ülke Seçiniz</option>
       <option *ngFor="let city of country" [value]="city">{{ city }}</option>
     </select>
   </div>
   <div class="input-group">
     <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/age.png" alt="age"/>
+      <img width="20" height="20" [src]="imgAge" alt="age" />
     </span>
-    <input type="number" [(ngModel)]="patient.age" class="form-control" placeholder="Yaş" required  />
+    <input type="number" [(ngModel)]="patient.age" class="form-control" placeholder="Yaş" required />
   </div>
   <div class="input-group">
     <span class="input-group-text">
-      <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/000000/gender.png" alt="gender"/>
+      <img width="20" height="20" [src]="imgGender" alt="gender" />
     </span>
-    <select [(ngModel)]="patient.gender" class="form-control" placeholder="Cinsiyet" required  >
+    <select [(ngModel)]="patient.gender" class="form-control" placeholder="Cinsiyet" required>
       <option value="" disabled selected hidden>Cinsiyet Seçiniz</option>
       <option value="Erkek">Erkek</option>
       <option value="Kadin">Kadin</option>

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppointmentService } from '../../../services/appointment.service';
 import { Appointment } from '../../../models/GetAllAppointments.model';
 import Swal from 'sweetalert2';
+import { images } from '../../../environments/image';
 
 
 @Component({
@@ -15,12 +16,12 @@ import Swal from 'sweetalert2';
   providers: [AppointmentService]
 })
 export class AppointmentListComponent implements OnInit {
-
+  imgDelete = images.imgDelete
   appointmentData: Appointment[] = [];
   filteredAppointmentData: Appointment[] = [];
-  pageSize: number = 10; // Sayfa başına gösterilecek öğe sayısı
+  pageSize: number = 10;
 
-  constructor(private AppointmentService: AppointmentService ) { }
+  constructor(private AppointmentService: AppointmentService) { }
 
   ngOnInit() {
     this.AppointmentService.getAllAppointments().subscribe(
@@ -33,7 +34,6 @@ export class AppointmentListComponent implements OnInit {
   }
 
   updateFilteredData() {
-    // Sayfa başına gösterilecek veriyi ayarla
     this.filteredAppointmentData =
       this.pageSize === -1
         ? this.appointmentData
@@ -60,13 +60,12 @@ export class AppointmentListComponent implements OnInit {
         this.AppointmentService.deleteAppointment(appointmentId).subscribe(
           (response) => {
             console.log('Silme işlemi başarılı:', response);
-  
-            // Silinen randevuyu listeden kaldır
+
             this.appointmentData = this.appointmentData.filter(
               (appointment) => appointment.appointmentId !== appointmentId
             );
-            this.updateFilteredData(); // Listeyi güncelle
-  
+            this.updateFilteredData();
+
             Swal.fire({
               title: "Silindi!",
               text: "Randevu başarıyla silindi.",
@@ -77,7 +76,7 @@ export class AppointmentListComponent implements OnInit {
           },
           (error) => {
             console.error('Randevu silinirken hata oluştu:', error);
-  
+
             Swal.fire({
               title: "Hata!",
               text: "Randevu silinirken bir hata oluştu.",

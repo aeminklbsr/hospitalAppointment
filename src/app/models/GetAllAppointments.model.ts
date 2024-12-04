@@ -1,5 +1,5 @@
 export interface Appointment {
-    appointmentDate: string ;  // Tarih formatında saklanabilir
+    appointmentDate: string ; 
     appointmentId: number;
     appointmentTime: string;
     isFirstVisit: boolean;

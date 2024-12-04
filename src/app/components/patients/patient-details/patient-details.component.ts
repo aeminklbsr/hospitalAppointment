@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { country } from '../../../environments/country';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { images } from '../../../environments/image';
+import { patientApi } from '../../../environments/patientApi';
+
 
 @Component({
   selector: 'app-patient-details',
@@ -17,13 +20,22 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
   providers: [PatientService, provideNgxMask()]
 })
 export class PatientDetailsComponent implements OnInit {
-  @Input() patient: Patients | null = null; // Gelen hasta bilgisi
-  editMode: boolean = false; // Düzenleme modunu kontrol etmek için
-  country: string[] = country.country
-  
-
-  firstName: string = ''; // İsim için
-  lastName: string = ''; // Soyisim için
+  @Input() patient: Patients | null = null;
+  editMode: boolean = false;
+  country: string[] = country.country;
+  userPhoto = images.userPhoto;
+  imgId = images.imgId;
+  imgName = images.imgName;
+  imgPhone = images.imgPhone;
+  imgCountry = images.imgCountry;
+  imgAge = images.imgAge;
+  imgGender = images.imgGender;
+  imgCreate = images.imgCreate;
+  imgSave = images.imgSave;
+  imgCancel = images.imgCancel;
+  imgDelete = images.imgDelete;
+  firstName: string = ''; 
+  lastName: string = '';
 
   constructor(private patientService: PatientService, private http: HttpClient) { }
 
@@ -32,8 +44,8 @@ export class PatientDetailsComponent implements OnInit {
 
     this.patient.name = `${this.firstName.trim()} ${this.lastName.trim()}`;
     
-    const url = '/api/HospitalAppointment/UpdatePatient'; // API endpoint
-    const updatedPatient = { ...this.patient }; // Güncellenmiş bilgileri al
+    const url = patientApi.updateApiUrl;
+    const updatedPatient = { ...this.patient };
 
     this.http.put(url, updatedPatient).subscribe(
       () => {
@@ -44,7 +56,7 @@ export class PatientDetailsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        this.editMode = false; // Düzenleme modunu kapat
+        this.editMode = false;
       },
       (error) => {
         console.error('Hasta bilgileri güncellenirken hata oluştu:', error);
