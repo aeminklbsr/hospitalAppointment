@@ -110,7 +110,9 @@ export class AppointmentAddComponent implements OnInit {
       if (result.isConfirmed) {
         // Kullanıcı onayladıysa randevuyu kaydet
         this.appointmentService.addNewAppointment(newAppointment).subscribe(
+          
           (response) => {
+            console.log("veri", newAppointment),
             Swal.fire({
               title: 'Randevu Başarıyla Oluşturuldu',
               html: `
